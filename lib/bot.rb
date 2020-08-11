@@ -17,24 +17,18 @@ class Bot
         when '/stop'
           bot.api.send_message(chat_id: message.chat.id, text: "Goodbye, #{message.from.first_name}")
         when (/^weather/)
-          str = message.text.split('/')
-          if getWeather(str[1])
-            bot.api.send_message(chat_id: message.chat.id, text: "Weather in #{getWeather(str[1])[:name]} is, #{getWeather(str[1])[:temp]}")
+          str = message.text.split('/')[1]
+          if getWeather(str)
+            bot.api.send_message(chat_id: message.chat.id, text: weatherText(str))
           else
             bot.api.send_message(chat_id: message.chat.id, text: "City not found, please enter a valid city name.")
           end
         when (/^covid/)
-          str = message.text.split('/')
-          if covidCases(str[1])
-            bot.api.send_message(chat_id: message.chat.id,
-              text: covidText(covidCases(str[1])[:totalCases],
-              covidCases(str[1])[:country],
-              covidCases(str[1])[:activeCases],
-              covidCases(str[1])[:deaths],
-              covidCases(str[1])[:recovered],
-              covidCases(str[1])[:critical]))
+          str = message.text.split('/')[1]
+          if covidCases(str)
+            bot.api.send_message(chat_id: message.chat.id, text: covidText(str))
           else
-            bot.api.send_message(chat_id: message.chat.id, text: "Country not found, please enter a valid country name.")
+            bot.api.send_message(chat_id: message.chat.id, text: "Country not found or doesn't have any cases")
           end
         else
           bot.api.send_message(chat_id: message.chat.id, text: 'I couldn\'t understand that command, please write a valid command.')
@@ -54,13 +48,15 @@ class Bot
     uri = URI("https://api.openweathermap.org/data/2.5/weather")
     uri.query = URI.encode_www_form(params)
     json = Net::HTTP.get(uri)
-    api_response = JSON.parse(json)
+    data = JSON.parse(json)
   
-    return false if api_response['name'] == nil
+    return false if data['name'] == nil
   
     info = {
-      name: api_response['name'],
-      temp: api_response['main']['temp']
+      city: data['name'],
+      temp: data['main']['temp'],
+      weather: data['weather'][0]['main'],
+      humidity: data['main']['humidity']
     }
     info
   end
@@ -70,28 +66,32 @@ class Bot
       :country => country
     }
     uri = URI("https://corona.lmao.ninja/v2/countries/#{country}")
-    # uri.query = URI.encode_www_form(params)
     json = Net::HTTP.get(uri)
-    api_response = JSON.parse(json)
+    data = JSON.parse(json)
   
-    return false unless api_response['message'].nil?
+    return false unless data['message'].nil?
 
     info = {
-      country: api_response['country'],
-      totalCases: api_response['cases'],
-      activeCases: api_response['active'],
-      critical: api_response['critical'],
-      deaths: api_response['deaths'],
-      recovered: api_response['recovered'],
+      country: data['country'],
+      totalCases: data['cases'],
+      activeCases: data['active'],
+      critical: data['critical'],
+      deaths: data['deaths'],
+      recovered: data['recovered'],
     }
     info
   end
 
-  def covidText(totalCases, country, activeCases, deaths, recovered, critical)
-    return "Today's Covid-19 Status for #{country}:\n
-    Total Number of Cases: #{totalCases}\n
-    Active Cases: #{activeCases}\n
-    Critical Cases: #{critical}\n
-    Recovered Cases: #{recovered}"
+  def weatherText(str)
+    return "Weather Now in #{getWeather(str)[:city]}\n#{getWeather(str)[:weather]}
+Temperature: #{getWeather(str)[:temp]} C\nHumidity: #{getWeather(str)[:humidity]}%\n"
+  end
+
+  def covidText(str)
+    return "Today's Covid-19 Status for #{covidCases(str)[:country]}:\n
+Total Number of Cases: #{covidCases(str)[:totalCases]}\n
+Active Cases: #{covidCases(str)[:activeCases]}\n
+Critical Cases: #{covidCases(str)[:critical]}\n
+Recovered Cases: #{covidCases(str)[:recovered]}"
   end
 end
