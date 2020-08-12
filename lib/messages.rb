@@ -1,17 +1,17 @@
 module Messages
 
-  def self.weatherText(str, methodName)
-    "Weather Now in __#{methodName[:city]}__\n
-    Weather: *#{methodName[:weather]}* | Temperature: *#{methodName[:temp]} C*\n
-    Humidity: *#{methodName[:humidity]}%* | Wind Speed: *#{methodName[:wind]} km/h*\n"
+  def self.weatherText(method_name)
+    "Weather Now in __#{method_name[:city]}__\n
+    Weather: *#{method_name[:weather]}* | Temperature: *#{method_name[:temp]} C*\n
+    Humidity: *#{method_name[:humidity]}%* | Wind Speed: *#{method_name[:wind]} km/h*\n"
   end
   
-  def self.covidText(str, methodName)
-  "Today's Covid-19 Status for __#{methodName[:country]}__:\n
-  Total Number of Cases: *#{methodName[:totalCases]}*\n
-  Active Cases: *#{methodName[:activeCases]}*\n
-  Critical Cases: *#{methodName[:critical]}*\n
-  Recovered Cases: *#{methodName[:recovered]}*"
+  def self.covidText(method_name)
+    "Today's Covid-19 Status for __#{method_name[:country]}__:\n
+    Total Number of Cases: *#{method_name[:totalCases]}*\n
+    Active Cases: *#{method_name[:activeCases]}*\n
+    Critical Cases: *#{method_name[:critical]}*\n
+    Recovered Cases: *#{method_name[:recovered]}*"
   end
 
   def self.welcome

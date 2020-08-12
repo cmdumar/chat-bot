@@ -22,14 +22,14 @@ class Bot
         when (/^weather/)
           str = message.text.split('/')[1]
           if getWeather(str)
-            bot.api.send_message(chat_id: message.chat.id, text: Messages.weatherText(str, getWeather(str)), parse_mode: 'Markdown')
+            bot.api.send_message(chat_id: message.chat.id, text: Messages.weatherText(getWeather(str)), parse_mode: 'Markdown')
           else
             bot.api.send_message(chat_id: message.chat.id, text: "City not found, please enter a valid city name.")
           end
         when (/^covid/)
           str = message.text.split('/')[1]
           if covidCases(str)
-            bot.api.send_message(chat_id: message.chat.id, text: Messages.covidText(str, covidCases(str)), parse_mode: 'Markdown')
+            bot.api.send_message(chat_id: message.chat.id, text: Messages.covidText(covidCases(str)), parse_mode: 'Markdown')
           else
             bot.api.send_message(chat_id: message.chat.id, text: "Country not found or doesn't have any cases")
           end
