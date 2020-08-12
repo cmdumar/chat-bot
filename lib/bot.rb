@@ -9,48 +9,66 @@ class Bot
     @time = Time.new
   end
 
-  def runBot
+  def run_bot
     Telegram::Bot::Client.run(@token) do |bot|
       bot.listen do |message|
         case message.text
         when '/start'
-          bot.api.send_message(chat_id: message.chat.id, 
-          text: "Hi, *#{message.from.first_name}*\n#{Messages.welcome}",
-          parse_mode: 'Markdown')
+          bot.api.send_message(
+            chat_id: message.chat.id,
+            text: "Hi, *#{message.from.first_name}*\n#{Messages.welcome}",
+            parse_mode: 'Markdown'
+          )
         when '/date'
-          bot.api.send_message(chat_id: message.chat.id,
-          text: "Today's date is *#{@time.day}-#{@time.month}-#{@time.year}*",
-          parse_mode: 'Markdown')
+          bot.api.send_message(
+            chat_id: message.chat.id,
+            text: "Today's date is *#{@time.day}-#{@time.month}-#{@time.year}*",
+            parse_mode: 'Markdown'
+          )
         when '/stop'
-          bot.api.send_message(chat_id: message.chat.id,
-          text: "Goodbye, #{message.from.first_name}")
-        when (/^weather/)
+          bot.api.send_message(
+            chat_id: message.chat.id,
+            text: "Goodbye, #{message.from.first_name}"
+          )
+        when /^weather/
           str = message.text.split('/')[1]
           if get_weather(str)
-            bot.api.send_message(chat_id: message.chat.id,
-            text: Messages.weather_text(get_weather(str)),
-            parse_mode: 'Markdown')
+            bot.api.send_message(
+              chat_id: message.chat.id,
+              text: Messages.weather_text(get_weather(str)),
+              parse_mode: 'Markdown'
+            )
           else
-            bot.api.send_message(chat_id: message.chat.id,
-            text: "City not found, please enter a valid city name.")
+            bot.api.send_message(
+              chat_id: message.chat.id,
+              text: 'City not found, please enter a valid city name.'
+            )
           end
-        when (/^covid/)
+        when /^covid/
           str = message.text.split('/')[1]
           if covid_cases(str)
-            bot.api.send_message(chat_id: message.chat.id,
-            text: Messages.covid_text(covid_cases(str)),
-            parse_mode: 'Markdown')
+            bot.api.send_message(
+              chat_id: message.chat.id,
+              text: Messages.covid_text(covid_cases(str)),
+              parse_mode: 'Markdown'
+            )
           else
-            bot.api.send_message(chat_id: message.chat.id,
-            text: "Country not found or doesn't have any cases")
+            bot.api.send_message(
+              chat_id: message.chat.id,
+              text: "Country not found or doesn't have any cases"
+            )
           end
         when '/help'
-          bot.api.send_message(chat_id: message.chat.id,
-          text: Messages.help,
-          parse_mode: 'Markdown')
+          bot.api.send_message(
+            chat_id: message.chat.id,
+            text: Messages.help,
+            parse_mode: 'Markdown'
+          )
         else
-          bot.api.send_message(chat_id: message.chat.id,
-          text: 'I couldn\'t understand that command, please write a valid command.')
+          bot.api.send_message(
+            chat_id: message.chat.id,
+            text: 'I couldn\'t understand that command, please write a valid command.'
+          )
         end
       end
     end

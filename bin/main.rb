@@ -3,7 +3,7 @@ require_relative '../lib/bot.rb'
 class StartBot
   def initialize
     run = Bot.new
-    run.runBot
+    run.run_bot
   end
 end
 
