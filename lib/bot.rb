@@ -73,7 +73,7 @@ class Bot
     }
     info
   end
-  
+
   def start_msg
     bot.api.send_message(
       chat_id: message.chat.id,
