@@ -65,6 +65,27 @@ class Bot
     info
   end
 
+  def getJokes(city)
+    params = {
+      :appid => '1f86ec5715mshcb95ce57223a3adp100a5cjsna2489cadbf62',
+    }
+    uri = URI("https://jokes.p.rapidapi.com/joke")
+    uri.query = URI.encode_www_form(params)
+    json = Net::HTTP.get(uri)
+    data = JSON.parse(json)
+  
+    return false if data['name'] == nil
+  
+    info = {
+      city: data['name'],
+      temp: data['main']['temp'],
+      weather: data['weather'][0]['main'],
+      humidity: data['main']['humidity'],
+      wind: data['wind']['speed']
+    }
+    info
+  end
+
   def covidCases(country)
     params = {
       :country => country
