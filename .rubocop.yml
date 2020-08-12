@@ -50,3 +50,5 @@ Style/HashTransformValues:
   Enabled: false
 Style/BlockComments:
   Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
