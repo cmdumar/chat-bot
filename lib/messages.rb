@@ -35,4 +35,20 @@ module Messages
     How to get weather details for a city?\n
     Type `weather/london` to get the weather for London"
   end
+
+  def self.unknown_command
+    "I couldn\'t understand that command, please write a valid command."
+  end
+
+  def self.unknown_country
+    "Country not found or doesn't have any cases"
+  end
+
+  def self.unknown_city
+    'City not found, please enter a valid city name.'
+  end
+
+  def self.date
+    "Today's date is *#{Time.new.day}-#{Time.new.month}-#{Time.new.year}*"
+  end
 end

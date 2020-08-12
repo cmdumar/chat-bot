@@ -1,76 +1,32 @@
-require 'telegram/bot'
 require_relative './messages.rb'
 
 class Bot
+  attr_reader :appid, :time, :bot, :message
   include Messages
-  def initialize
-    @token = '1396281284:AAGXP51_X96VNnPmE_UZ944EZaN9lJ2Aq28'
+  def initialize(bot, message)
+    @bot = bot
+    @message = message
     @appid = '0028ea367b25a551e7348f7875810282'
     @time = Time.new
   end
 
   def run_bot
-    Telegram::Bot::Client.run(@token) do |bot|
-      bot.listen do |message|
-        case message.text
-        when '/start'
-          bot.api.send_message(
-            chat_id: message.chat.id,
-            text: "Hi, *#{message.from.first_name}*\n#{Messages.welcome}",
-            parse_mode: 'Markdown'
-          )
-        when '/date'
-          bot.api.send_message(
-            chat_id: message.chat.id,
-            text: "Today's date is *#{@time.day}-#{@time.month}-#{@time.year}*",
-            parse_mode: 'Markdown'
-          )
-        when '/stop'
-          bot.api.send_message(
-            chat_id: message.chat.id,
-            text: "Goodbye, #{message.from.first_name}"
-          )
-        when /^weather/
-          str = message.text.split('/')[1]
-          if get_weather(str)
-            bot.api.send_message(
-              chat_id: message.chat.id,
-              text: Messages.weather_text(get_weather(str)),
-              parse_mode: 'Markdown'
-            )
-          else
-            bot.api.send_message(
-              chat_id: message.chat.id,
-              text: 'City not found, please enter a valid city name.'
-            )
-          end
-        when /^covid/
-          str = message.text.split('/')[1]
-          if covid_cases(str)
-            bot.api.send_message(
-              chat_id: message.chat.id,
-              text: Messages.covid_text(covid_cases(str)),
-              parse_mode: 'Markdown'
-            )
-          else
-            bot.api.send_message(
-              chat_id: message.chat.id,
-              text: "Country not found or doesn't have any cases"
-            )
-          end
-        when '/help'
-          bot.api.send_message(
-            chat_id: message.chat.id,
-            text: Messages.help,
-            parse_mode: 'Markdown'
-          )
-        else
-          bot.api.send_message(
-            chat_id: message.chat.id,
-            text: 'I couldn\'t understand that command, please write a valid command.'
-          )
-        end
-      end
+    str = message.text.split('/')[1]
+    case message.text
+    when '/start'
+      start_msg
+    when '/date'
+      msg_placeholder(Messages.date)
+    when '/stop'
+      stop_msg
+    when /^weather/
+      weather(str)
+    when /^covid/
+      covid(str)
+    when '/help'
+      msg_placeholder(Messages.help)
+    else
+      msg_placeholder(Messages.unknown_command)
     end
   end
 
@@ -116,5 +72,53 @@ class Bot
       recovered: data['recovered']
     }
     info
+  end
+  
+  def start_msg
+    bot.api.send_message(
+      chat_id: message.chat.id,
+      text: "Hi, *#{message.from.first_name}*\n#{Messages.welcome}",
+      parse_mode: 'Markdown'
+    )
+  end
+
+  def stop_msg
+    bot.api.send_message(
+      chat_id: message.chat.id,
+      text: "Goodbye, #{message.from.first_name}",
+      parse_mode: 'Markdown'
+    )
+  end
+
+  def weather(str)
+    if get_weather(str)
+      bot.api.send_message(
+        chat_id: message.chat.id,
+        text: Messages.weather_text(get_weather(str)),
+        parse_mode: 'Markdown'
+      )
+    else
+      msg_placeholder(Messages.unknown_city)
+    end
+  end
+
+  def covid(str)
+    if covid_cases(str)
+      bot.api.send_message(
+        chat_id: message.chat.id,
+        text: Messages.covid_text(covid_cases(str)),
+        parse_mode: 'Markdown'
+      )
+    else
+      msg_placeholder(Messages.unknown_country)
+    end
+  end
+
+  def msg_placeholder(msg)
+    bot.api.send_message(
+      chat_id: message.chat.id,
+      text: msg,
+      parse_mode: 'Markdown'
+    )
   end
 end
