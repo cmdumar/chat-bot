@@ -1,12 +1,11 @@
 module Messages
-
-  def self.weatherText(method_name)
+  def self.weather_text(method_name)
     "Weather Now in __#{method_name[:city]}__\n
     Weather: *#{method_name[:weather]}* | Temperature: *#{method_name[:temp]} C*\n
     Humidity: *#{method_name[:humidity]}%* | Wind Speed: *#{method_name[:wind]} km/h*\n"
   end
-  
-  def self.covidText(method_name)
+
+  def self.covid_text(method_name)
     "Today's Covid-19 Status for __#{method_name[:country]}__:\n
     Total Number of Cases: *#{method_name[:totalCases]}*\n
     Active Cases: *#{method_name[:activeCases]}*\n

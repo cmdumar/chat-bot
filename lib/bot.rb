@@ -14,29 +14,43 @@ class Bot
       bot.listen do |message|
         case message.text
         when '/start'
-          bot.api.send_message(chat_id: message.chat.id, text: "Hi, *#{message.from.first_name}*\n#{Messages.welcome}", parse_mode: 'Markdown')
+          bot.api.send_message(chat_id: message.chat.id, 
+          text: "Hi, *#{message.from.first_name}*\n#{Messages.welcome}",
+          parse_mode: 'Markdown')
         when '/date'
-          bot.api.send_message(chat_id: message.chat.id, text: "Today's date is *#{@time.day}-#{@time.month}-#{@time.year}*", parse_mode: 'Markdown')
+          bot.api.send_message(chat_id: message.chat.id,
+          text: "Today's date is *#{@time.day}-#{@time.month}-#{@time.year}*",
+          parse_mode: 'Markdown')
         when '/stop'
-          bot.api.send_message(chat_id: message.chat.id, text: "Goodbye, #{message.from.first_name}")
+          bot.api.send_message(chat_id: message.chat.id,
+          text: "Goodbye, #{message.from.first_name}")
         when (/^weather/)
           str = message.text.split('/')[1]
-          if getWeather(str)
-            bot.api.send_message(chat_id: message.chat.id, text: Messages.weatherText(getWeather(str)), parse_mode: 'Markdown')
+          if get_weather(str)
+            bot.api.send_message(chat_id: message.chat.id,
+            text: Messages.weather_text(get_weather(str)),
+            parse_mode: 'Markdown')
           else
-            bot.api.send_message(chat_id: message.chat.id, text: "City not found, please enter a valid city name.")
+            bot.api.send_message(chat_id: message.chat.id,
+            text: "City not found, please enter a valid city name.")
           end
         when (/^covid/)
           str = message.text.split('/')[1]
-          if covidCases(str)
-            bot.api.send_message(chat_id: message.chat.id, text: Messages.covidText(covidCases(str)), parse_mode: 'Markdown')
+          if covid_cases(str)
+            bot.api.send_message(chat_id: message.chat.id,
+            text: Messages.covid_text(covid_cases(str)),
+            parse_mode: 'Markdown')
           else
-            bot.api.send_message(chat_id: message.chat.id, text: "Country not found or doesn't have any cases")
+            bot.api.send_message(chat_id: message.chat.id,
+            text: "Country not found or doesn't have any cases")
           end
         when '/help'
-          bot.api.send_message(chat_id: message.chat.id, text: Messages.help, parse_mode: 'Markdown')
+          bot.api.send_message(chat_id: message.chat.id,
+          text: Messages.help,
+          parse_mode: 'Markdown')
         else
-          bot.api.send_message(chat_id: message.chat.id, text: 'I couldn\'t understand that command, please write a valid command.')
+          bot.api.send_message(chat_id: message.chat.id,
+          text: 'I couldn\'t understand that command, please write a valid command.')
         end
       end
     end
@@ -44,18 +58,18 @@ class Bot
 
   private
 
-  def getWeather(city)
+  def get_weather(city)
     params = {
-      :appid => @appid,
-      :q => city,
-      :units => 'metric'
+      appid: @appid,
+      q: city,
+      units: 'metric'
     }
-    uri = URI("https://api.openweathermap.org/data/2.5/weather")
+    uri = URI('https://api.openweathermap.org/data/2.5/weather')
     uri.query = URI.encode_www_form(params)
     json = Net::HTTP.get(uri)
     data = JSON.parse(json)
 
-    return false if data['name'] == nil
+    return false if data['name'].nil?
 
     info = {
       city: data['name'],
@@ -67,7 +81,7 @@ class Bot
     info
   end
 
-  def covidCases(country)
+  def covid_cases(country)
     country = country.include?(' ') ? country.split(' ').join('-') : country
 
     uri = URI("https://corona.lmao.ninja/v2/countries/#{country}")
@@ -81,7 +95,7 @@ class Bot
       activeCases: data['active'],
       critical: data['critical'],
       deaths: data['deaths'],
-      recovered: data['recovered'],
+      recovered: data['recovered']
     }
     info
   end
