@@ -7,7 +7,6 @@ class Bot
     @bot = bot
     @message = message
     @appid = '0028ea367b25a551e7348f7875810282'
-    @time = Time.new
     run_bot
   end
 
@@ -18,7 +17,8 @@ class Bot
     str = str.is_a?(NilClass) ? 'weather' : str
     case message.text.downcase
     when '/start'
-      start_msg
+      text = "Hi, *#{message.from.first_name}*\n#{Messages.welcome}"
+      bot_api(text)
     when '/date'
       bot_api(Messages.date)
     when /^weather/
@@ -80,11 +80,6 @@ class Bot
       text: text,
       parse_mode: 'Markdown'
     )
-  end
-
-  def start_msg
-    text = "Hi, *#{message.from.first_name}*\n#{Messages.welcome}"
-    bot_api(text)
   end
 
   def weather(str)
