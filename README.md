@@ -7,7 +7,7 @@
 * Run `ruby bin/main.rb`
 * Open the bot in the Telegram App using this [link](https://t.me/chingani_bot)
 
-## Note: The bot has already deployed to Heroku, So running the project might throw an error, because only 1 instance of the bot can run at a time
+## Note: The bot has been already deployed to Heroku, So running the project might throw an error because only 1 instance of the bot can run at a time
 
 ## Bot Features/Commands
 * Send `/start` to get the Welcome Message
