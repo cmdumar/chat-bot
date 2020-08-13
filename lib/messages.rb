@@ -1,6 +1,4 @@
-require 'telegram/bot'
 module Messages
-
   def self.weather_text(method_name)
     "Weather Now in __#{method_name[:city]}__\n
     Weather: *#{method_name[:weather]}* | Temperature: *#{method_name[:temp]} C*\n
