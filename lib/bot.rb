@@ -12,7 +12,8 @@ class Bot
 
   def run_bot
     str = message.text.split('/')[1]
-    case message.text
+    str = str.is_a?(NilClass) ? 'weather' : str
+    case message.text.downcase
     when '/start'
       start_msg
     when '/date'
