@@ -15,5 +15,9 @@ jobs:
         run: |
           [ -f Gemfile ] && bundle --deployment
           gem install --no-document rspec:'~>3.0'
+          gem install dotenv
+          gem install telegram-bot-ruby
       - name: RSpec Report
+        env:
+          OPENWEATHER_API: ${{ secrets.OPENWEATHER_API }}
         run: rspec --force-color --format documentation
