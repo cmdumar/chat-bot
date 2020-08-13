@@ -1,12 +1,13 @@
 # Telegram Bot
 > A Telegram Covid-19 Bot created with Ruby
 
-
 ## Instructions To Run the Project Locally
 * Clone the Repo `git clone https://github.com/mohammadumar28/chat-bot.git`
 * Change in to the cloned repo `cd chat-bot`
 * Run `ruby bin/main.rb`
-* Open the bot in the Telegram App using this [link](t.me/chingani_bot)
+* Open the bot in the Telegram App using this [link](https://t.me/chingani_bot)
+
+## Note: The bot has already deployed to Heroku, So running the project might throw an error, because only 1 instance of the bot can run at a time
 
 ## Bot Features/Commands
 * Send `/start` to get the Welcome Message
@@ -16,7 +17,7 @@
 * Send `/help` to get the list of all commands
 
 ## Bot Link
-* [Telegram Link](t.me/chingani_bot)
+* [Telegram Link](https://t.me/chingani_bot)
 
 ## Tools/Languages Used
 * Ruby
@@ -35,7 +36,7 @@
 * [Telegram Bot Ruby](https://github.com/atipugin/telegram-bot-ruby)
 * [Telegram API](https://core.telegram.org/api)
 * [Open Weather API](https://openweathermap.org/)
-* [Novel Covid API](github.com/NovelCOVID/API)
+* [Novel Covid API](https://github.com/NovelCOVID/API)
 
 ## Contribution
 * Fork it
