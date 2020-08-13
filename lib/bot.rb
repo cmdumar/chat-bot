@@ -8,7 +8,10 @@ class Bot
     @message = message
     @appid = '0028ea367b25a551e7348f7875810282'
     @time = Time.new
+    run_bot
   end
+
+  private
 
   def run_bot
     str = message.text.split('/')[1]
@@ -17,19 +20,17 @@ class Bot
     when '/start'
       start_msg
     when '/date'
-      msg_placeholder(Messages.date)
+      bot_api(Messages.date)
     when /^weather/
       weather(str)
     when /^covid/
       covid(str)
     when '/help'
-      msg_placeholder(Messages.help)
+      bot_api(Messages.help)
     else
-      msg_placeholder(Messages.unknown_command)
+      bot_api(Messages.unknown_command)
     end
   end
-
-  private
 
   def get_weather(city)
     params = {
@@ -73,51 +74,34 @@ class Bot
     info
   end
 
-  def start_msg
+  def bot_api(text)
     bot.api.send_message(
       chat_id: message.chat.id,
-      text: "Hi, *#{message.from.first_name}*\n#{Messages.welcome}",
+      text: text,
       parse_mode: 'Markdown'
     )
   end
 
-  def stop_msg
-    bot.api.send_message(
-      chat_id: message.chat.id,
-      text: "Goodbye, #{message.from.first_name}",
-      parse_mode: 'Markdown'
-    )
+  def start_msg
+    text = "Hi, *#{message.from.first_name}*\n#{Messages.welcome}"
+    bot_api(text)
   end
 
   def weather(str)
     if get_weather(str)
-      bot.api.send_message(
-        chat_id: message.chat.id,
-        text: Messages.weather_text(get_weather(str)),
-        parse_mode: 'Markdown'
-      )
+      text = Messages.weather_text(get_weather(str))
+      bot_api(text)
     else
-      msg_placeholder(Messages.unknown_city)
+      bot_api(Messages.unknown_city)
     end
   end
 
   def covid(str)
     if covid_cases(str)
-      bot.api.send_message(
-        chat_id: message.chat.id,
-        text: Messages.covid_text(covid_cases(str)),
-        parse_mode: 'Markdown'
-      )
+      text = Messages.covid_text(covid_cases(str))
+      bot_api(text)
     else
-      msg_placeholder(Messages.unknown_country)
+      bot_api(Messages.unknown_country)
     end
-  end
-
-  def msg_placeholder(msg)
-    bot.api.send_message(
-      chat_id: message.chat.id,
-      text: msg,
-      parse_mode: 'Markdown'
-    )
   end
 end
