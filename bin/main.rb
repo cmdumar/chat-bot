@@ -1,6 +1,5 @@
 require 'telegram/bot'
 require_relative '../lib/bot.rb'
-require_relative '../lib/messages.rb'
 require_relative '../config/environment.rb'
 
 class StartBot

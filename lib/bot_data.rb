@@ -1,4 +1,46 @@
-module Messages
+module BotData
+  def self.get_weather(api_key, city)
+    params = {
+      appid: api_key,
+      q: city,
+      units: 'metric'
+    }
+    uri = URI('https://api.openweathermap.org/data/2.5/weather')
+    uri.query = URI.encode_www_form(params)
+    json = Net::HTTP.get(uri)
+    data = JSON.parse(json)
+
+    return false if data['name'].nil?
+
+    info = {
+      city: data['name'],
+      temp: data['main']['temp'],
+      weather: data['weather'][0]['main'],
+      humidity: data['main']['humidity'],
+      wind: data['wind']['speed']
+    }
+    info
+  end
+
+  def self.covid_cases(country)
+    country = country.include?(' ') ? country.split(' ').join('-') : country
+
+    uri = URI("https://corona.lmao.ninja/v2/countries/#{country}")
+    json = Net::HTTP.get(uri)
+    data = JSON.parse(json)
+    return false unless data['message'].nil?
+
+    info = {
+      country: data['country'],
+      totalCases: data['cases'],
+      activeCases: data['active'],
+      critical: data['critical'],
+      deaths: data['deaths'],
+      recovered: data['recovered']
+    }
+    info
+  end
+
   def self.weather_text(method_name)
     "Weather Now in __#{method_name[:city]}__\n
     Weather: *#{method_name[:weather]}* | Temperature: *#{method_name[:temp]} C*\n
