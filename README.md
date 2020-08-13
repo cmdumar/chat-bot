@@ -1,7 +1,11 @@
 # Telegram Bot
+
+![Twitter Follow](https://img.shields.io/twitter/follow/Mohammadumar28?label=mohammadumar28&style=social)
+
 > A Telegram Covid-19 Bot created with Ruby
 
 ## Instructions To Run the Project Locally
+
 * Clone the Repo `git clone https://github.com/mohammadumar28/chat-bot.git`
 * Change in to the cloned repo `cd chat-bot`
 * Run `ruby bin/main.rb`
@@ -10,6 +14,7 @@
 ## Note: The bot has been already deployed to Heroku, So running the project might throw an error because only 1 instance of the bot can run at a time
 
 ## Bot Features/Commands
+
 * Send `/start` to get the Welcome Message
 * Send `covid/<country-name>` to get Covid-19 stats for a country
 * Send `weather/<city-name>` to get today's weather for a city
@@ -17,20 +22,24 @@
 * Send `/help` to get the list of all commands
 
 ## Bot Link
+
 * [Telegram Link](https://t.me/chingani_bot)
 
 ## Tools/Languages Used
+
 * Ruby
 * RSpec
 * Heroku
 
 ## Author
+
 **Muhammad Umar**
 - Github: [@mohammadumar28](https://github.com/mohammadumar28)
 - LinkedIn: [Muhammad Umar](https://www.linkedin.com/in/mohammadumar28/)
 - Twitter: [@Mohammadumar28](https://twitter.com/Mohammadumar28)
 - Telegram: [@mohammadumar28](https://t.me/mohammadumar28)
 - Email: [mohammadumar28@gmail.com](mailto:mohammadumar28@gmail.com)
+
 ## Acknowledgements
 
 * [Telegram Bot Ruby](https://github.com/atipugin/telegram-bot-ruby)
@@ -39,6 +48,7 @@
 * [Novel Covid API](https://github.com/NovelCOVID/API)
 
 ## Contribution
+
 * Fork it
 * Create your feature branch `git checkout -b my-new-feature`
 * Commit your changes `git commit -am "Add some feature"`
