@@ -18,8 +18,6 @@ class Bot
       start_msg
     when '/date'
       msg_placeholder(Messages.date)
-    when '/stop'
-      stop_msg
     when /^weather/
       weather(str)
     when /^covid/
