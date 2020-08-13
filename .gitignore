@@ -1,2 +1,4 @@
 .DS_Store
 /wac-bot
+# Ignore application configuration
+.env

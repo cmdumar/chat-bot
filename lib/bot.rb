@@ -1,4 +1,5 @@
 require_relative './messages.rb'
+require_relative '../config/environment.rb'
 
 class Bot
   attr_reader :appid, :time, :bot, :message
@@ -6,7 +7,7 @@ class Bot
   def initialize(bot, message)
     @bot = bot
     @message = message
-    @appid = '0028ea367b25a551e7348f7875810282'
+    @appid = ENV['OPENWEATHER_API']
     run_bot
   end
 
