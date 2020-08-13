@@ -11,18 +11,18 @@ describe 'TelegramBot' do
 
   context '#get_weather' do
     it 'when a valid api key and city name is passed' do
-      weatherNow = BotData.get_weather(api_key, 'London')
-      expect(weatherNow).to be_a_kind_of(Hash)
+      weather_now = BotData.get_weather(api_key, 'London')
+      expect(weather_now).to be_a_kind_of(Hash)
     end
 
     it 'when an invalid API key' do
-      weatherNow = BotData.get_weather(invalid_key, 'London')
-      expect(weatherNow).to be false
+      weather_now = BotData.get_weather(invalid_key, 'London')
+      expect(weather_now).to be false
     end
 
     it 'when an invalid city name is passed' do
-      weatherNow = BotData.get_weather(api_key, 'iguana')
-      expect(weatherNow).to be false
+      weather_now = BotData.get_weather(api_key, 'iguana')
+      expect(weather_now).to be false
     end
   end
 
