@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.7.1'
 gem 'dotenv'
 gem 'rubocop', '~>0.81.0'
 gem 'telegram-bot-ruby'
