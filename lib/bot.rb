@@ -7,7 +7,7 @@ class Bot
   def initialize(bot, message)
     @bot = bot
     @message = message
-    @api_key = ENV['OPENWEATHER_API']
+    @api_key = BotData::OPENWEATHER_API
     run_bot
   end
 

@@ -1,16 +1,20 @@
 require_relative '../lib/bot_data.rb'
-require_relative '../config/environment.rb'
 require 'net/http'
 require 'json'
 
 describe 'TelegramBot' do
   let(:weather_data) { { city: 'Chennai', weather: 'Thunderstorms', temp: 32, humidity: 60, wind: 4 } }
   let(:covid_data) { { country: 'India', totalCases: 1211, activeCases: 111, critical: 11, recovered: 989 } }
-  let(:api_key) { ENV['OPENWEATHER_API'] }
+  let(:api_key) { BotData::OPENWEATHER_API }
   let(:invalid_key) { '1a2s3v4' }
 
   describe '#get_weather' do
-    it 'when an invalid API key' do
+    it 'when a valid API key is passed' do
+      weather_now = BotData.get_weather(api_key, 'London')
+      expect(weather_now).to be_a_kind_of(Hash)
+    end
+
+    it 'when an invalid API key is passed' do
       weather_now = BotData.get_weather(invalid_key, 'London')
       expect(weather_now).to be false
     end

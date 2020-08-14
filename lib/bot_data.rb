@@ -1,3 +1,5 @@
+require_relative '../config/environment.rb'
+
 module BotData
   def self.get_weather(api_key, city)
     params = {
@@ -93,4 +95,7 @@ module BotData
   def self.date
     "Today's date is *#{Time.new.day}-#{Time.new.month}-#{Time.new.year}*"
   end
+
+  OPENWEATHER_API = ENV['OPENWEATHER_API']
+  TELEGRAM_TOKEN = ENV['TELEGRAM_TOKEN']
 end
