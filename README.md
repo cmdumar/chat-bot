@@ -1,25 +1,28 @@
 # Telegram Bot
 
-![Twitter Follow](https://img.shields.io/twitter/follow/Mohammadumar28?label=mohammadumar28&style=social)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mohammadumar28/chat-bot/Tests?label=RSpec)  ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mohammadumar28/chat-bot/Linters?label=RuboCop)
 
 > A Telegram Covid-19 Bot created with Ruby
 
-## Instructions To Run the Project Locally
+## To Run the Project Locally
 
 * Clone the Repo `git clone https://github.com/mohammadumar28/chat-bot.git`
-* Change in to the cloned repo `cd chat-bot`
-* Run `ruby bin/main.rb`
-* Open the bot in the Telegram App using this [link](https://t.me/chingani_bot)
+* Run `cd chat-bot` to change directory to the cloned repo.
+* Run `bundle install` to install all the gems in the project.
+* Run `ruby bin/main.rb` to start the bot.
+* Open the bot in a [Telegram app](https://telegram.org/apps) using this [link](https://t.me/chingani_bot)
 
-## Note: The bot has been already deployed to Heroku, So running the project might throw an error because only 1 instance of the bot can run at a time
+## Note:
+
+The bot has been already deployed to Heroku, So running the project locally might throw an error because **only 1** instance of the bot can run at a time.
 
 ## Bot Features/Commands
 
-* Send `/start` to get the Welcome Message
-* Send `covid/<country-name>` to get Covid-19 stats for a country
-* Send `weather/<city-name>` to get today's weather for a city
-* Send `/date` to know the date
-* Send `/help` to get the list of all commands
+* `/start` to get the welcome Message.
+* `covid/<country-name>` to get current Covid-19 stats for a country.
+* `weather/<city-name>` to get current weather for a city.
+* `/date` to know today's date.
+* `/help` to get the list of all commands and examples.
 
 ## Bot Link
 
@@ -42,15 +45,15 @@
 
 ## Acknowledgements
 
-* [Telegram Bot Ruby](https://github.com/atipugin/telegram-bot-ruby)
 * [Telegram API](https://core.telegram.org/api)
+* [Telegram Bot Ruby](https://github.com/atipugin/telegram-bot-ruby)
 * [Open Weather API](https://openweathermap.org/)
 * [Novel Covid API](https://github.com/NovelCOVID/API)
 
 ## Contribution
 
-* Fork it
-* Create your feature branch `git checkout -b my-new-feature`
-* Commit your changes `git commit -am "Add some feature"`
-* Push to the branch `git push origin my-new-feature`
-* Create new Pull Request
+* Fork this repo.
+* Create your feature branch `git checkout -b my-new-feature`.
+* Commit your changes `git commit -am "Add some feature"`.
+* Push to the branch `git push origin my-new-feature`.
+* Create a new Pull Request.
