@@ -6,6 +6,9 @@
 
 This is a Telegram Bot built using Ruby. You can get statistics and updates about Covid-19 for any country. You can also know the latest weather updates of any city.
 
+![screenshot](./assets/screenshot.png)
+
+
 ## To Run the Project Locally
 
 * Clone the Repo `git clone https://github.com/mohammadumar28/chat-bot.git`
