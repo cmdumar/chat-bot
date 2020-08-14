@@ -19,6 +19,6 @@ jobs:
           gem install telegram-bot-ruby
       - name: RSpec Report
         env:
-          OPENWEATHER_API: ${{ secrets.PROGRAMMING_QUOTE_API }}
-          TELEGRAM_TOKEN: ${{ secrets.WORD_OF_DAY_API }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          OPENWEATHER_API: ${{ secrets.OPENWEATHER_API }} 
         run: rspec --force-color --format documentation
