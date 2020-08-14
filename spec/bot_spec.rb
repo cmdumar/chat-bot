@@ -10,11 +10,6 @@ describe 'TelegramBot' do
   let(:invalid_key) { '1a2s3v4' }
 
   context '#get_weather' do
-    it 'when a valid api key and city name is passed' do
-      weather_now = BotData.get_weather(api_key, 'London')
-      expect(weather_now).to be_a_kind_of(Hash)
-    end
-
     it 'when an invalid API key' do
       weather_now = BotData.get_weather(invalid_key, 'London')
       expect(weather_now).to be false
