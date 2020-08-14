@@ -2,7 +2,9 @@
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mohammadumar28/chat-bot/Tests?label=RSpec)  ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mohammadumar28/chat-bot/Linters?label=RuboCop)
 
-> A Telegram Covid-19 Bot created with Ruby
+> A Telegram Covid-19 Bot built-with Ruby
+
+This is a Telegram Bot built using Ruby. You can get statistics and updates about Covid-19 for any country. You can also know the latest weather updates of any city.
 
 ## To Run the Project Locally
 
@@ -18,11 +20,11 @@ The bot has been already deployed to Heroku, So running the project locally migh
 
 ## Bot Features/Commands
 
-* `/start` to get the welcome Message.
-* `covid/<country-name>` to get current Covid-19 stats for a country.
-* `weather/<city-name>` to get current weather for a city.
-* `/date` to know today's date.
-* `/help` to get the list of all commands and examples.
+1. `/start` to get the welcome Message.
+2. `covid/<country-name>` to get current Covid-19 stats for a country.
+3. `weather/<city-name>` to get current weather for a city.
+4. `/date` to know today's date.
+5. `/help` to get the list of all commands and examples.
 
 ## Bot Link
 
