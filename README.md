@@ -8,8 +8,31 @@ This is a Telegram Bot built using Ruby. You can get statistics and updates abou
 
 ![screenshot](./assets/screenshot.png)
 
+## Before Running The Project
 
-## To Run the Project Locally
+If you want to run the project locally in your machine, then you need to obtain the API keys to run it, otherwise it will throw an error.
+
+### 1. Telegram Bot Token
+
+* You can get the Telegram Bot Token from [BotFather](https://core.telegram.org/bots#6-botfather).
+
+### 2. OpenWeather API
+
+* Go to [OpenWeather Website](https://openweathermap.org/)
+* Sign up and go to this [page](https://home.openweathermap.org/api_keys)
+* Copy the API key
+
+### 3. Create .env file
+
+* In the cloned repo directory, create a `.env` file
+* Create 2 variables like this:
+
+```
+TELEGRAM_TOKEN=<Replace with Telegram Bot Token>
+OPENWEATHER_API=<Replace with OpenWeather API key>
+```
+
+## Run the Project Locally
 
 * Clone the Repo `git clone https://github.com/mohammadumar28/chat-bot.git`
 * Run `cd chat-bot` to change directory to the cloned repo.
