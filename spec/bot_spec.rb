@@ -63,13 +63,6 @@ describe 'TelegramBot' do
     end
   end
 
-  describe '#welcome' do
-    it 'returns string' do
-      welcome = BotData.welcome
-      expect(welcome).to be_a_kind_of(String)
-    end
-  end
-
   describe '#help' do
     it 'returns string' do
       help = BotData.help
