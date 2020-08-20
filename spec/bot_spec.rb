@@ -64,13 +64,6 @@ describe 'TelegramBot' do
     end
   end
 
-  describe '#covid_text' do
-    it 'when a valid argument (data) is passed' do
-      covid = BotData.covid_text(covid_data)
-      expect(covid).to be_a_kind_of(String)
-    end
-  end
-
   describe '#welcome' do
     it 'returns string' do
       welcome = BotData.welcome
