@@ -3,12 +3,36 @@ require 'net/http'
 require 'json'
 
 describe 'TelegramBot' do
-  let(:weather_data) { { city: 'Chennai', weather: 'Thunderstorms', temp: 32, humidity: 60, wind: 4 } }
-  let(:covid_data) { { country: 'India', totalCases: 1211, activeCases: 111, critical: 11, recovered: 989 } }
+  let(:weather_data) do
+    { city: 'Chennai',
+      weather: 'Thunderstorms',
+      temp: 32,
+      humidity: 60,
+      wind: 4,
+      description: 'Heavy',
+      feels_like: 35 }
+  end
+  let(:covid_data) do
+    {
+      country: 'India',
+      totalCases: 1211,
+      activeCases: 111,
+      critical: 11,
+      recovered: 989,
+      population: 1000,
+      deaths: 1000,
+      todayCases: 0
+    }
+  end
   let(:api_key) { BotData::OPENWEATHER_API }
   let(:invalid_key) { '1a2s3v4' }
 
   describe '#get_weather' do
+    it 'when an valid API key is passed' do
+      weather_now = BotData.get_weather(api_key, 'Toronto')
+      expect(weather_now).to be_a_kind_of(Hash)
+    end
+
     it 'when an invalid API key is passed' do
       weather_now = BotData.get_weather(invalid_key, 'London')
       expect(weather_now).to be false
@@ -36,20 +60,6 @@ describe 'TelegramBot' do
     it 'when a valid argument (data) is passed' do
       weather = BotData.weather_text(weather_data)
       expect(weather).to be_a_kind_of(String)
-    end
-  end
-
-  describe '#covid_text' do
-    it 'when a valid argument (data) is passed' do
-      covid = BotData.covid_text(covid_data)
-      expect(covid).to be_a_kind_of(String)
-    end
-  end
-
-  describe '#welcome' do
-    it 'returns string' do
-      welcome = BotData.welcome
-      expect(welcome).to be_a_kind_of(String)
     end
   end
 

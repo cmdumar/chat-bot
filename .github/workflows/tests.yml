@@ -17,6 +17,7 @@ jobs:
           gem install --no-document rspec:'~>3.0'
           gem install dotenv
           gem install telegram-bot-ruby
+          gem install humanize
       - name: RSpec Report
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}

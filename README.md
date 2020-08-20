@@ -22,8 +22,10 @@ If you want to run the project locally in your machine, then you need to obtain 
 * Sign up and go to this [page](https://home.openweathermap.org/api_keys)
 * Copy the API key
 
-### 3. Create .env file
+## Run the Project Locally
 
+* Clone the Repo `git clone https://github.com/mohammadumar28/chat-bot.git`
+* Run `cd chat-bot` to change directory to the cloned repo.
 * In the cloned repo directory, create a `.env` file
 * Create 2 variables like this:
 
@@ -31,26 +33,21 @@ If you want to run the project locally in your machine, then you need to obtain 
 TELEGRAM_TOKEN=<Replace with Telegram Bot Token>
 OPENWEATHER_API=<Replace with OpenWeather API key>
 ```
-
-## Run the Project Locally
-
-* Clone the Repo `git clone https://github.com/mohammadumar28/chat-bot.git`
-* Run `cd chat-bot` to change directory to the cloned repo.
-* Run `bundle install` to install all the gems in the project.
+* Run `bundle install`.
 * Run `ruby bin/main.rb` to start the bot.
 * Open the bot in a [Telegram app](https://telegram.org/apps) using this [link](https://t.me/chingani_bot)
 
 ## Note:
 
-The bot has been already deployed to Heroku, So running the project locally might throw an error because **only 1** instance of the bot can run at a time.
+The bot has been already deployed and running on Heroku, So running the project locally might throw an error because **only 1** instance of the bot can run at a time.
 
 ## Bot Features/Commands
 
-1. `/start` to get the welcome Message.
-2. `covid/<country-name>` to get current Covid-19 stats for a country.
-3. `weather/<city-name>` to get current weather for a city.
-4. `/date` to know today's date.
-5. `/help` to get the list of all commands and examples.
+1. `/start` - Welcome Message.
+2. `covid/<country-name>` - Current Covid-19 stats for a country.
+3. `weather/<city-name>` - Latest Weather forecast for a city.
+4. `/date` - today's date.
+5. `/help` - List of all the commands and examples.
 
 ## Bot Link
 
@@ -66,7 +63,7 @@ The bot has been already deployed to Heroku, So running the project locally migh
 
 **Muhammad Umar**
 - Github: [@mohammadumar28](https://github.com/mohammadumar28)
-- LinkedIn: [Muhammad Umar](https://www.linkedin.com/in/mohammadumar28/)
+- LinkedIn: [Mohammad Umar](https://www.linkedin.com/in/mohammadumar28/)
 - Twitter: [@Mohammadumar28](https://twitter.com/Mohammadumar28)
 - Telegram: [@mohammadumar28](https://t.me/mohammadumar28)
 - Email: [mohammadumar28@gmail.com](mailto:mohammadumar28@gmail.com)

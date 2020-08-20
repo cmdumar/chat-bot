@@ -1,4 +1,5 @@
 require_relative '../config/environment.rb'
+require 'humanize'
 
 module BotData
   def self.get_weather(api_key, city)
@@ -18,15 +19,16 @@ module BotData
       city: data['name'],
       temp: data['main']['temp'],
       weather: data['weather'][0]['main'],
+      description: data['weather'][0]['description'],
       humidity: data['main']['humidity'],
-      wind: data['wind']['speed']
+      wind: data['wind']['speed'],
+      feels_like: data['main']['feels_like']
     }
     info
   end
 
   def self.covid_cases(country)
     country = country.include?(' ') ? country.split(' ').join('-') : country
-
     uri = URI("https://corona.lmao.ninja/v2/countries/#{country}")
     json = Net::HTTP.get(uri)
     data = JSON.parse(json)
@@ -38,46 +40,86 @@ module BotData
       activeCases: data['active'],
       critical: data['critical'],
       deaths: data['deaths'],
-      recovered: data['recovered']
+      recovered: data['recovered'],
+      todayCases: data['todayCases'],
+      population: data['population'],
+      continent: data['continent']
     }
     info
   end
 
   def self.weather_text(method_name)
-    "Weather Now in __#{method_name[:city]}__\n
-    Weather: *#{method_name[:weather]}* | Temperature: *#{method_name[:temp]} C*\n
-    Humidity: *#{method_name[:humidity]}%* | Wind Speed: *#{method_name[:wind]} km/h*\n"
+    "Weather Now in ___#{method_name[:city]}_\r__
+
+    Temperature: *#{method_name[:temp]} C*
+
+    Feels Like: *#{method_name[:feels_like]} C*
+
+    Weather: *#{method_name[:weather]}*
+
+    Description: *#{method_name[:description]}*
+
+    Humidity: *#{method_name[:humidity]}%*
+
+    Wind Speed: *#{method_name[:wind]} km/h*"
   end
 
   def self.covid_text(method_name)
-    "Today's Covid-19 Status for __#{method_name[:country]}__:\n
-    Total Number of Cases: *#{method_name[:totalCases]}*\n
-    Active Cases: *#{method_name[:activeCases]}*\n
-    Critical Cases: *#{method_name[:critical]}*\n
-    Recovered Cases: *#{method_name[:recovered]}*"
+    "Covid-19 Statistics for __#{method_name[:country]}__ :
+
+    Population: *#{number_comma(method_name[:population])}* (#{method_name[:population].humanize.capitalize})
+
+    Total Cases: *#{number_comma(method_name[:totalCases])}* (#{method_name[:totalCases].humanize.capitalize})
+
+    Today's Cases: *#{number_comma(method_name[:todayCases])}* (#{method_name[:todayCases].humanize.capitalize})
+
+    Active Cases: *#{number_comma(method_name[:activeCases])}* (#{method_name[:activeCases].humanize.capitalize})
+
+    Critical Cases: *#{number_comma(method_name[:critical])}* (#{method_name[:critical].humanize.capitalize})
+
+    Recovered Cases: *#{number_comma(method_name[:recovered])}* (#{method_name[:recovered].humanize.capitalize})
+
+    Total Deaths: *#{number_comma(method_name[:deaths])}* (#{method_name[:deaths].humanize.capitalize})
+
+    Continent: *#{method_name[:continent]}*"
   end
 
-  def self.welcome
-    "\nI am a Weather and Covid-19 Bot\n
-    You can know about the current weather of any city.\n
-    You can know about the Covid-19 Cases and other info of any country.\n
-    List of commands you can use in this bot:\n
-    Covid-19 command: *covid/*`<replace me with country name>`\n
-    Weather command: *weather/*`<replace me with city name>`\n
-    Date command: /date (To know the date)"
+  def self.number_comma(number)
+    number.to_s.chars.to_a.reverse.each_slice(3).map(&:join).join(',').reverse
+  end
+
+  def self.welcome(name)
+    "Hi! *#{name}*,
+
+    I am a Weather and Covid-19 Bot!
+    I can give you detailed Covid-19 statistics for any country and latest weather forecast for any city.
+
+    List of commands you can use:
+
+    1. Covid-19 Statistics: `covid/<replace this with country name>`
+    2. Weather Forecast: `weather/<replace this with city name>`
+    3. Today's Date: /date (To know the date)
+    4. Help: /help (To list all the commands)"
   end
 
   def self.help
-    "List of Commands: \n
-    1. /start: Start the bot\n
-    2. covid/_<country-name>_: Get Covid-19 details\n
-    3. weather/_<city-name>_: Get today's weather\n
-    4. /date: Get today's date\n
-    5. /help: Get the list of all commands.\n
-    How to get Covid-19 details for a country?\n
-    Type `covid/usa` to get the details for United States\n
-    How to get weather details for a city?\n
-    Type `weather/london` to get the weather for London"
+    "Is everything alright?
+    Oh you want to know the wishes I can grant!
+    List of Wishes (Commands) ;):
+
+    1. /start: Welcome Message
+    2. `covid/<country-name>`: Covid-19 statistics
+    3. `weather/_<city-name>`: Latest Weather Forecast
+    4. /date: Today's date
+    5. /help: Get the list of all commands.
+
+    Examples:
+
+    How to get Covid-19 statistics for USA?
+    Type `covid/usa` to get the statistics for United States Of America
+
+    How to get weather forecast for London?
+    Type `weather/london` to get the latest weather for London"
   end
 
   def self.unknown_command
