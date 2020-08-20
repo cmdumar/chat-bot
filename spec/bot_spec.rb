@@ -1,7 +1,6 @@
 require_relative '../lib/bot_data.rb'
 require 'net/http'
 require 'json'
-require 'humanize'
 
 describe 'TelegramBot' do
   let(:weather_data) do
