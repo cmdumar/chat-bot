@@ -52,3 +52,5 @@ Style/BlockComments:
   Enabled: false
 Metrics/CyclomaticComplexity:
   Enabled: false
+Metrics/ModuleLength:
+  Enabled: false

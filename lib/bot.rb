@@ -18,7 +18,7 @@ class Bot
     str = str.is_a?(NilClass) ? 'weather' : str
     case message.text.downcase
     when '/start'
-      text = "Hi, *#{message.from.first_name}*\n#{BotData.welcome}"
+      text = BotData.welcome(message.from.first_name)
       bot_api(text)
     when '/date'
       bot_api(BotData.date)
