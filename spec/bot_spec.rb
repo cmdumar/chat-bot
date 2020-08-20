@@ -1,10 +1,11 @@
 require_relative '../lib/bot_data.rb'
 require 'net/http'
 require 'json'
+require 'humanize'
 
 describe 'TelegramBot' do
-  let(:weather_data) { { city: 'Chennai', weather: 'Thunderstorms', temp: 32, humidity: 60, wind: 4 } }
-  let(:covid_data) { { country: 'India', totalCases: 1211, activeCases: 111, critical: 11, recovered: 989 } }
+  let(:weather_data) { { city: 'Chennai', weather: 'Thunderstorms', temp: 32, humidity: 60, wind: 4, description: 'Heavy thunderstorm', feels_like: 35 } }
+  let(:covid_data) { { country: 'India', totalCases: 1211, activeCases: 111, critical: 11, recovered: 989, population: 1000000000, deaths: 1000, todayCases: 0 } }
   let(:api_key) { BotData::OPENWEATHER_API }
   let(:invalid_key) { '1a2s3v4' }
 
