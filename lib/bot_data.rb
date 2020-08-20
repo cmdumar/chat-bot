@@ -1,4 +1,5 @@
 require_relative '../config/environment.rb'
+require 'humanize'
 
 module BotData
   def self.get_weather(api_key, city)
@@ -18,8 +19,10 @@ module BotData
       city: data['name'],
       temp: data['main']['temp'],
       weather: data['weather'][0]['main'],
+      description: data['weather'][0]['description'],
       humidity: data['main']['humidity'],
-      wind: data['wind']['speed']
+      wind: data['wind']['speed'],
+      feels_like: data['main']['feels_like']
     }
     info
   end
@@ -38,27 +41,56 @@ module BotData
       activeCases: data['active'],
       critical: data['critical'],
       deaths: data['deaths'],
-      recovered: data['recovered']
+      recovered: data['recovered'],
+      todayCases: data['todayCases'],
+      population: data['population'],
+      continent: data['continent']
     }
     info
   end
 
   def self.weather_text(method_name)
-    "Weather Now in __#{method_name[:city]}__\n
-    Weather: *#{method_name[:weather]}* | Temperature: *#{method_name[:temp]} C*\n
-    Humidity: *#{method_name[:humidity]}%* | Wind Speed: *#{method_name[:wind]} km/h*\n"
+    "Weather Now in ___#{method_name[:city]}_\r__
+
+    Temperature: *#{method_name[:temp]} C*
+
+    Feels Like: *#{method_name[:feels_like]} C*
+
+    Weather: *#{method_name[:weather]}*
+
+    Description: *#{method_name[:description]}*
+
+    Humidity: *#{method_name[:humidity]}%*
+
+    Wind Speed: *#{method_name[:wind]} km/h*"
   end
 
   def self.covid_text(method_name)
-    "Today's Covid-19 Status for __#{method_name[:country]}__:\n
-    Total Number of Cases: *#{method_name[:totalCases]}*\n
-    Active Cases: *#{method_name[:activeCases]}*\n
-    Critical Cases: *#{method_name[:critical]}*\n
-    Recovered Cases: *#{method_name[:recovered]}*"
+    "Covid-19 Statistics for __#{method_name[:country]}__ :
+
+    Population: *#{number_comma(method_name[:population])}* (#{method_name[:population].humanize.capitalize})
+
+    Total Cases: *#{number_comma(method_name[:totalCases])}* (#{method_name[:totalCases].humanize.capitalize})
+
+    Today's Cases: *#{number_comma(method_name[:todayCases])}* (#{method_name[:todayCases].humanize.capitalize})
+
+    Active Cases: *#{number_comma(method_name[:activeCases])}* (#{method_name[:activeCases].humanize.capitalize})
+
+    Critical Cases: *#{number_comma(method_name[:critical])}* (#{method_name[:critical].humanize.capitalize})
+
+    Recovered Cases: *#{number_comma(method_name[:recovered])}* (#{method_name[:recovered].humanize.capitalize})
+
+    Total Deaths: *#{number_comma(method_name[:deaths])}* (#{method_name[:deaths].humanize.capitalize})
+
+    Continent: *#{method_name[:continent]}*"
+  end
+
+  def self.number_comma(number)
+    number.to_s.chars.to_a.reverse.each_slice(3).map(&:join).join(',').reverse
   end
 
   def self.welcome
-    "\nI am a Weather and Covid-19 Bot\n
+    "I am a Weather and Covid-19 Bot\n
     You can know about the current weather of any city.\n
     You can know about the Covid-19 Cases and other info of any country.\n
     List of commands you can use in this bot:\n
