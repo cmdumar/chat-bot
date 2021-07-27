@@ -47,10 +47,6 @@ The bot has been already deployed and running on Heroku, So running the project 
 4. `/date` - today's date.
 5. `/help` - List of all the commands and examples.
 
-## Bot Link
-
-* [Telegram Link](https://t.me/chingani_bot)
-
 ## Tools/Languages Used
 
 * Ruby
